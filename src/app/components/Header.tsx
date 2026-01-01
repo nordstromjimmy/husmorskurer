@@ -3,14 +3,14 @@ import Link from "next/link";
 import { LogIn, LogOut, Menu, X, User, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const [user, setUser] = useState<any>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+  const supabase = createSupabaseBrowserClient();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user));

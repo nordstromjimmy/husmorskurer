@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export const metadata = {
   title: "Användarvillkor | Husmorskurer.se",
   description:

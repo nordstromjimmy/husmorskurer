@@ -1,8 +1,6 @@
-// src/app/components/FavoriteButton.tsx
 "use client";
-
 import { Heart } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type FavoriteButtonProps = {
@@ -20,7 +18,7 @@ export default function FavoriteButton({
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+  const supabase = createSupabaseBrowserClient();
 
   const toggleFavorite = async () => {
     if (loading) return;

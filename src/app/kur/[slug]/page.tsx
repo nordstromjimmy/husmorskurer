@@ -1,10 +1,7 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 import FavoriteButton from "@/app/components/FavoriteButton";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { Cure } from "@/types/cure";
-import { Leaf, AlertTriangle, Clock, Heart } from "lucide-react";
+import { Leaf, AlertTriangle, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export default async function CurePage({
@@ -71,7 +68,6 @@ export default async function CurePage({
         )}
 
         {/* Titel och metadata */}
-
         <div className="flex items-start justify-between mb-8">
           <h1 className="text-3xl md:text-3xl font-bold text-amber-900">
             {typedCure.title}

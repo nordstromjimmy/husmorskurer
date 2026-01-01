@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const router = useRouter();
-  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+  const supabase = createSupabaseBrowserClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

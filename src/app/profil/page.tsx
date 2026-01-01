@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LogOut, User, Heart, Calendar } from "lucide-react";
+import { User, Heart, Calendar } from "lucide-react";
 
 type FavoriteCure = {
   id: string;
@@ -20,7 +20,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+  const supabase = createSupabaseBrowserClient();
 
   useEffect(() => {
     async function fetchProfileData() {

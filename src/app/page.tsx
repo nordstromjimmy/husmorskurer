@@ -1,6 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import HomeClient from "./components/HomeClient";
-import { CurePreview } from "@/types/cure";
 
 export default async function HomePage() {
   // Hämta all data på servern – supersnabbt och SEO-vänligt
