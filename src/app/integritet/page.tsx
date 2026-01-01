@@ -1,3 +1,6 @@
+// src/app/integritet/page.tsx
+import Link from "next/link";
+
 export const metadata = {
   title: "Integritetspolicy | Husmorskurer.se",
   description:
@@ -24,56 +27,108 @@ export default function Integritet() {
           </h2>
           <p className="text-amber-900">
             Husmorskurer.se värnar om din integritet. Denna policy förklarar hur
-            vi hanterar personuppgifter när du besöker vår webbplats.
+            vi hanterar personuppgifter när du använder vår webbplats, inklusive
+            funktioner för att skapa konto och spara favoriter.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            2. Insamling av personuppgifter
+            2. Vilka personuppgifter vi samlar in
           </h2>
           <p className="text-amber-900">
-            Vi samlar för närvarande <strong>inga personuppgifter</strong> från
-            besökare. Webbplatsen använder inga kakor (cookies), inloggning
-            eller formulär som samlar in e-post eller annan information.
+            När du använder webbplatsen samlar vi in följande uppgifter:
+          </p>
+          <ul className="list-disc list-inside text-amber-900 mt-4 space-y-2">
+            <li>
+              <strong>Vid konto-skapande och inloggning:</strong> Din
+              e-postadress och ett krypterat lösenord (hanteras av Supabase
+              Authentication).
+            </li>
+            <li>
+              <strong>Vid användning av favoriter:</strong> Information om vilka
+              huskurer du sparar som favoriter (kopplat till ditt konto).
+            </li>
+            <li>
+              <strong>Teknisk data:</strong> Anonymiserad användardata såsom
+              sidvisningar och prestanda (via Supabase och Vercel) – ingen
+              personlig identifiering.
+            </li>
+          </ul>
+          <p className="text-amber-900 mt-4">
+            Vi använder <strong>inga cookies</strong> för spårning eller analys.
+          </p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold text-amber-900 mb-4">
+            3. Hur vi använder dina uppgifter
+          </h2>
+          <p className="text-amber-900">
+            Dina personuppgifter används enbart för att:
+          </p>
+          <ul className="list-disc list-inside text-amber-900 mt-4 space-y-2">
+            <li>Ge dig tillgång till ditt konto och dina sparade favoriter.</li>
+            <li>Förbättra webbplatsens funktion och prestanda.</li>
+          </ul>
+          <p className="text-amber-900 mt-4">
+            Vi säljer, delar eller överför aldrig dina personuppgifter till
+            tredje part.
+          </p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold text-amber-900 mb-4">
+            4. Lagring och säkerhet
+          </h2>
+          <p className="text-amber-900">
+            Dina uppgifter lagras säkert hos <strong>Supabase</strong> (en
+            GDPR-kompatibel tjänst baserad i EU). Lösenord krypteras automatiskt
+            och vi har inget tillgång till dem i klartext.
           </p>
           <p className="text-amber-900 mt-4">
-            Vi använder enbart nödvändiga tekniska data för att driva
-            webbplatsen (t.ex. via Supabase), men dessa innehåller ingen
-            personlig information.
+            Vi använder moderna säkerhetsmetoder som Row Level Security (RLS)
+            för att säkerställa att du endast kommer åt dina egna uppgifter.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            3. Tredjepartsverktyg
+            5. Dina rättigheter
           </h2>
-          <p className="text-amber-900">
-            Vi Supabase för datalagring. Dessa tjänster kan samla in
-            anonymiserad användardata (t.ex. sidvisningar) för prestanda och
-            säkerhet, men ingen personlig identifiering sker.
+          <p className="text-amber-900">Du har rätt att:</p>
+          <ul className="list-disc list-inside text-amber-900 mt-4 space-y-2">
+            <li>Begära ut vilka uppgifter vi har om dig.</li>
+            <li>
+              Begära radering av ditt konto och alla relaterade uppgifter.
+            </li>
+            <li>Återkalla samtycke när som helst.</li>
+          </ul>
+          <p className="text-amber-900 mt-4">
+            Kontakta oss via e-post för att utöva dina rättigheter.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            4. Ändringar i policyn
+            6. Ändringar i policyn
           </h2>
           <p className="text-amber-900">
-            Vi kan komma att uppdatera denna integritetspolicy. Vid väsentliga
-            ändringar meddelas det tydligt på webbplatsen.
+            Vi kan uppdatera denna integritetspolicy vid behov. Vid större
+            ändringar meddelar vi det tydligt på webbplatsen.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            5. Kontakt
+            7. Kontakt
           </h2>
           <p className="text-amber-900">
-            Vid frågor om integritet eller personuppgifter, kontakta oss på:{" "}
+            Vid frågor om integritet, personuppgifter eller denna policy,
+            kontakta oss på:{" "}
             <a
               href="mailto:info@husmorskurer.se"
-              className="text-amber-700 underline"
+              className="text-amber-700 underline font-medium"
             >
               info@husmorskurer.se
             </a>
