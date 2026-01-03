@@ -1,7 +1,14 @@
 import FavoriteButton from "@/app/components/FavoriteButton";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { Cure } from "@/types/cure";
-import { Leaf, AlertTriangle, Clock } from "lucide-react";
+import {
+  Leaf,
+  AlertTriangle,
+  Clock,
+  Microscope,
+  CheckCircle,
+} from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function CurePage({
@@ -10,7 +17,6 @@ export default async function CurePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  console.log("Test");
   const supabase = await createSupabaseServerClient();
 
   const { data: cure, error } = await supabase
@@ -23,10 +29,10 @@ export default async function CurePage({
     notFound();
   }
 
+  // Hämta om det är favorit
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log("server user:", user?.id);
   let isFavorite = false;
 
   if (user) {
@@ -38,18 +44,36 @@ export default async function CurePage({
       .maybeSingle();
 
     isFavorite = !!fav;
-    console.log(cure.id);
-    console.log("Test");
   }
 
   const typedCure = cure as Cure;
 
-  const evidenceIcon =
-    {
-      folklore: "🌿",
-      some_research: "🔬",
-      well_researched: "✅",
-    }[typedCure.evidence_level] || "🌿";
+  // Hämta relaterade kurer baserat på tags
+  const { data: relatedCures } = await supabase
+    .from("cures")
+    .select("id, title, slug, short_description, image_url")
+    .neq("id", typedCure.id) // Exkludera aktuell kur
+    .overlaps("tags", typedCure.tags) // Delar minst en tag
+    .limit(3)
+    .order("title");
+
+  const evidenceInfo = {
+    folklore: {
+      icon: <Leaf className="w-6 h-6 text-green-700" />,
+      label: "Traditionellt husmorsknep",
+    },
+    some_research: {
+      icon: <Microscope className="w-6 h-6 text-blue-700" />,
+      label: "Viss forskning stödjer",
+    },
+    well_researched: {
+      icon: <CheckCircle className="w-6 h-6 text-green-600" />,
+      label: "Väl underbyggd forskning",
+    },
+  };
+
+  const evidence =
+    evidenceInfo[typedCure.evidence_level] || evidenceInfo.folklore;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 via-amber-50 to-orange-50 py-12">
@@ -90,7 +114,8 @@ export default async function CurePage({
             <span>{typedCure.difficulty || "Enkel"}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>{evidenceIcon} Traditionell kunskap</span>
+            <span className="text-2xl">{evidence.icon}</span>
+            <span className="text-amber-800 font-medium">{evidence.label}</span>
           </div>
         </div>
 
@@ -165,6 +190,42 @@ export default async function CurePage({
             </span>
           ))}
         </div>
+        {relatedCures && relatedCures.length > 0 && (
+          <section className="mt-20">
+            <h2 className="text-3xl font-bold text-amber-900 mb-8 text-center">
+              Relaterade huskurer
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {relatedCures.map((related) => (
+                <Link
+                  key={related.id}
+                  href={`/kur/${related.slug}`}
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden border border-amber-100"
+                >
+                  {related.image_url ? (
+                    <img
+                      src={related.image_url}
+                      alt={related.title}
+                      className="w-full h-40 object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-40 bg-gradient-to-br from-amber-100 to-green-100 flex items-center justify-center">
+                      <Leaf className="w-12 h-12 text-amber-600" />
+                    </div>
+                  )}
+                  <div className="p-5">
+                    <h3 className="font-semibold text-amber-900 line-clamp-2">
+                      {related.title}
+                    </h3>
+                    <p className="text-amber-700 text-sm mt-2 line-clamp-3">
+                      {related.short_description}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
     </div>
   );

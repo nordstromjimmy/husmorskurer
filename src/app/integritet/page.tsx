@@ -1,6 +1,3 @@
-// src/app/integritet/page.tsx
-import Link from "next/link";
-
 export const metadata = {
   title: "Integritetspolicy | Husmorskurer.se",
   description:

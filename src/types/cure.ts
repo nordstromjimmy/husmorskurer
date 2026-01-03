@@ -12,7 +12,6 @@ export type Cure = {
   tags: string[];
   evidence_level: "folklore" | "some_research" | "well_researched";
   warnings: string[];
-  related_cures: string[];
   image_url?: string;
   alt_text?: string;
 };
