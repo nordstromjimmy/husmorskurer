@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Leaf, Filter, X, Heart } from "lucide-react";
+import { Leaf, Filter, X, Heart, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CurePreview } from "@/types/cure";
@@ -23,6 +23,7 @@ export default function HomeClient({
   const [filteredCures, setFilteredCures] =
     useState<CurePreview[]>(initialCures);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [showDesktopCategories, setShowDesktopCategories] = useState(true);
 
   // Filtrera client-side när kategori ändras
   useEffect(() => {
@@ -83,24 +84,7 @@ export default function HomeClient({
         <SearchBar />
 
         {/* Rubrik med antal träffar */}
-        {/* Rubrik med antal träffar + valfri text på desktop */}
         <div className="flex items-center justify-between mb-6">
-          {/* "Välj en kategori" – syns bara på md och uppåt (desktop/tablet) */}
-          <h2 className="hidden md:block text-2xl font-semibold text-amber-900">
-            Kategorier
-          </h2>
-
-          {/* Resultat-rubrik – alltid synlig, men centrerad på mobil om ingen vänster-text */}
-          <h2 className="text-lg text-amber-900 text-center md:text-left">
-            {searchQuery
-              ? `Sökresultat för "${searchQuery}"`
-              : selectedCategory
-              ? selectedCategory.charAt(0).toUpperCase() +
-                selectedCategory.slice(1)
-              : "Alla huskurer"}{" "}
-            ({filteredCures.length})
-          </h2>
-
           {/* Mobil filter-knapp */}
           <button
             onClick={() => setShowFilterModal(true)}
@@ -112,30 +96,55 @@ export default function HomeClient({
         </div>
 
         {/* Desktop filter */}
-        <div className="hidden md:flex flex-wrap gap-3 mb-8">
+        <div className="mb-8">
           <button
-            onClick={() => router.push("/")}
-            className={`px-5 py-3 rounded-xl font-medium transition-all ${
-              !selectedCategory
-                ? "bg-amber-600 text-white"
-                : "bg-white/80 text-amber-800 border border-amber-300"
-            }`}
+            onClick={() => setShowDesktopCategories(!showDesktopCategories)}
+            className="hidden md:flex items-center gap-3 text-amber-900 font-semibold text-xl mb-4 hover:text-amber-700 transition cursor-pointer"
           >
-            Alla
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleCategoryClick(cat)}
-              className={`px-5 py-3 rounded-xl font-medium transition-all cursor-pointer ${
-                selectedCategory === cat
-                  ? "bg-amber-600 text-white"
-                  : "bg-white/80 text-amber-800 border border-amber-300"
+            <span>Kategorier</span>
+            <ChevronDown
+              className={`w-6 h-6 transition-transform ${
+                showDesktopCategories ? "rotate-180" : ""
               }`}
-            >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
-            </button>
-          ))}
+            />
+          </button>
+          <h2 className="text-lg text-amber-900 text-center md:text-left mb-4">
+            {searchQuery
+              ? `Sökresultat för "${searchQuery}"`
+              : selectedCategory
+              ? selectedCategory.charAt(0).toUpperCase() +
+                selectedCategory.slice(1)
+              : "Alla huskurer"}{" "}
+            ({filteredCures.length})
+          </h2>
+
+          {showDesktopCategories && (
+            <div className="hidden md:flex flex-wrap gap-3 animate-fadeIn">
+              <button
+                onClick={() => router.push("/")}
+                className={`px-5 py-3 rounded-xl font-medium transition-all cursor-pointer ${
+                  !selectedCategory
+                    ? "bg-amber-600 text-white"
+                    : "bg-white/80 text-amber-800 border border-amber-300"
+                }`}
+              >
+                Alla
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryClick(cat)}
+                  className={`px-5 py-3 rounded-xl font-medium transition-all cursor-pointer ${
+                    selectedCategory === cat
+                      ? "bg-amber-600 text-white"
+                      : "bg-white/80 text-amber-800 border border-amber-300"
+                  }`}
+                >
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Kur-kort */}

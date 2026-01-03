@@ -12,7 +12,7 @@ export default async function HomePage() {
   const { data: cures, error } = await supabase
     .from("cures")
     .select("id, title, slug, short_description, image_url, categories, tags")
-    .order("title");
+    .order("created_at", { ascending: false });
 
   let favorites: string[] = [];
   if (user) {
