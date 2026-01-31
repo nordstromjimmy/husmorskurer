@@ -57,18 +57,7 @@ export default function Villkor() {
 
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            4. Immateriella rättigheter
-          </h2>
-          <p className="text-amber-900">
-            Innehållet på Husmorskurer.se är skyddat av upphovsrätt. Du får
-            använda tipsen privat, men kommersiell användning eller distribution
-            kräver tillstånd.
-          </p>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            5. Ändringar av villkoren
+            4. Ändringar av villkoren
           </h2>
           <p className="text-amber-900">
             Vi förbehåller oss rätten att när som helst uppdatera dessa villkor.
@@ -79,7 +68,7 @@ export default function Villkor() {
 
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-amber-900 mb-4">
-            6. Kontakt
+            5. Kontakt
           </h2>
           <p className="text-amber-900">
             Vid frågor om villkoren, kontakta oss på:{" "}

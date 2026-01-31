@@ -48,8 +48,8 @@ export default function Integritet() {
             </li>
             <li>
               <strong>Teknisk data:</strong> Anonymiserad användardata såsom
-              sidvisningar och prestanda (via Supabase och Vercel) – ingen
-              personlig identifiering.
+              sidvisningar och prestanda (via Supabase) – ingen personlig
+              identifiering.
             </li>
           </ul>
           <p className="text-amber-900 mt-4">
